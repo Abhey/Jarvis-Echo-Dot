@@ -10,6 +10,7 @@ import logging
 import speech_recognition as sr
 import json
 import requests
+from termcolor import colored
 
 logging.basicConfig()
 logger = logging.getLogger("snowboy")
@@ -59,7 +60,7 @@ def play_audio_file(fname=DETECT_DING):
     stream_out.close()
     audio.terminate()
 
-    print("Jarvis Activated: Waiting For Command")
+    print(colored("Jarvis Activated: Waiting For Command", "yellow"))
 
     r = sr.Recognizer()
     mic = sr.Microphone()
@@ -69,7 +70,7 @@ def play_audio_file(fname=DETECT_DING):
         audio = r.listen(source)
 
     recognized_text = r.recognize_google(audio)
-    print("Recieved command is: " + recognized_text)
+    print(colored("Recieved command is: " + recognized_text, "blue"))
 
     body = {"command": recognized_text}
     url = "http://" + IPADDRESS + ":" + PORT + "/api"
