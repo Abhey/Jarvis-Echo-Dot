@@ -1,0 +1,1 @@
+{"class":"com.johnsnowlabs.nlp.Finisher","timestamp":1543454619048,"sparkVersion":"2.3.2","uid":"Finisher_4d3e8ee7879ecea0724d","paramMap":{"valueSplitSymbol":"#","inputCols":["pos"],"cleanAnnotations":true,"annotationSplitSymbol":"@","outputAsArray":false,"includeMetadata":true}}

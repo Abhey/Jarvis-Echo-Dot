@@ -21,7 +21,7 @@ RESOURCE_FILE = os.path.join(TOP_DIR, "resources/common.res")
 DETECT_DING = os.path.join(TOP_DIR, "resources/ding.wav")
 DETECT_DONG = os.path.join(TOP_DIR, "resources/dong.wav")
 IPADDRESS = "127.0.0.1"
-PORT = "5000"
+PORT = 2698
 
 class RingBuffer(object):
     """Ring buffer to hold audio from PortAudio"""
@@ -72,10 +72,12 @@ def play_audio_file(fname=DETECT_DING):
     recognized_text = r.recognize_google(audio)
     print(colored("Recieved command is: " + recognized_text, "blue"))
 
-    body = {"command": recognized_text}
-    url = "http://" + IPADDRESS + ":" + PORT + "/api"
-
-    res = requests.post(url, json=body)
+    s = socket.socket()
+    s.connect((IPADDRESS, PORT))
+    s.send(recognized_text.encode())
+    res = s.recv(1024)
+    print(colored("Processed outupt is: " + res.decode(), "yellow"))
+    s.close()
 
 
 class HotwordDetector(object):
